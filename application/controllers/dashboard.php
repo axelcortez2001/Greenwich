@@ -9,8 +9,19 @@ class Dashboard extends CI_Controller {
     }
 
     public function index() {
-        // Retrieve the username from the session data
-        $data['username'] = $this->session->userdata('username');
-        $this->load->view('dashboard', $data);
+        // Retrieve the user data from the session
+        $user = $this->session->userdata('user');
+        if ($user) {
+            // Pass the user data to the view
+            $data['user'] = $user;
+            $this->load->view('dashboard', $data);
+        } else {
+            // User data not found in session, redirect to login
+            redirect('login');
+        }
+    }
+    public function logout() {
+        $this->session->unset_userdata('user'); 
+        redirect('login');
     }
 }

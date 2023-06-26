@@ -11,22 +11,31 @@ class Login extends CI_Controller {
         $this->load->view('login');
     }
   
-    public function authenticate() {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
-      
-        $user = $this->User_model->get_user($username, $password);
-      
-        if ($user) {
-            // User exists, redirect to dashboard
-            $this->session->set_userdata('username', $username);
-            redirect('dashboard');
-        } else {
-            // User authentication failed, show error message
-            $data['error'] = 'Invalid username or password';
-            echo '<script>alert("' . $data['error'] . '");</script>';
-            $this->load->view('login', $data);
+        public function authenticate() {
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
+        
+            $user = $this->User_model->get_user($username, $password);
+        
+            if ($user) {
+                $userData = array(
+                    'emp_id' => $user->emp_id,
+                    'username' => $user->username,
+                    'password' => $user->password,
+                    'name' => $user->name,
+                    'address' => $user->address,
+                    'job_name' =>$user->job_name,
+                    // Add any other relevant user data you want to store
+                );
+                $this->session->set_userdata('user', $userData);
+                redirect('dashboard');
+            } else {
+                // User authentication failed, show error message
+                $data['error'] = 'Invalid username or password';
+                echo '<script>alert("' . $data['error'] . '");</script>';
+                $this->load->view('login', $data);
+            }
         }
-    }
+        
 }
 ?>
