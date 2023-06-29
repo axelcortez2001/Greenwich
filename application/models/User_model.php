@@ -10,13 +10,16 @@ class User_model extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
-    public function getAllUsers($filter = null) {
+    public function getAllUsers() {
         $this->db->select('employee.*, job.name as job_name');
         $this->db->from('employee');
         $this->db->join('job', 'employee.job_id = job.job_id', 'left');
         $query = $this->db->get();
         return $query->result_array();
     }
-  
+
+    public function create_employee($data){
+        $this->db->insert('employee', $data);
+    } 
 }
 ?>

@@ -19,6 +19,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 redirect('login');
             }
         }
+        //Add Employee
+        public function add(){
+            $this->load->view('Add_employee');
+        }
+        public function create_emp() {
+            $data = array(
+                'name' => $this->input->post('name'),
+                'address' => $this->input->post('address'),
+                'phone_no' => $this->input->post('phone_no'),
+                'date_hired' => $this->input->post('date_hired'),
+                'username' => $this->input->post('username'),
+                'password' => $this->input->post('password'),
+                'job_id' => $this->input->post('job_id'),
+            );
+            $this->User_model->create_employee($data);
+            redirect('Employee'); 
+        }
+
         public function logout() {
             $this->session->unset_userdata('user'); 
             redirect('login');
