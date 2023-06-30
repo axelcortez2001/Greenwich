@@ -55,5 +55,5 @@ $route['translate_uri_dashes'] = FALSE;
 $route['employee_management'] = 'Employee/index';
 $route['Jobs/add'] = 'Jobs/add';
 $route['Employee/add'] = 'Employee/add';
-
+$route['Employee/edit/(:num)'] = 'Employee/edit/$1';
 

@@ -36,7 +36,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->User_model->create_employee($data);
             redirect('Employee'); 
         }
-
+        public function delete($emp_id)
+        {
+            $this->User_model->delete_employee($emp_id);
+            redirect('Employee');
+        }
+        public function edit($emp_id)
+        {
+            $data['user'] = $this->User_model->getEmployeeById($emp_id);
+            $this->load->view('Edit_employee', $data);
+        }
+        public function update($emp_id)
+        {
+            $data = array(
+                'name' => $this->input->post('name'),
+                'address' => $this->input->post('address'),
+                'phone_no' => $this->input->post('phone_no'),
+                'date_hired' => $this->input->post('date_hired'),
+                'username' => $this->input->post('username'),
+                'password' => $this->input->post('password'),
+                'job_id' => $this->input->post('job_id'),
+            );
+            $this->User_model->update_employee($emp_id, $data);
+            redirect('Employee');
+        }
         public function logout() {
             $this->session->unset_userdata('user'); 
             redirect('login');

@@ -47,8 +47,8 @@
                     <td class="py-4 px-6 border-b border-gray-200"><?php echo $user['date_hired']; ?></td>
                     <td class="py-4 px-6 border-b border-gray-200"><?php echo $user['job_name']; ?></td>
                     <td class="py-4 px-6 border-b border-gray-200">
-                      <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Edit</button>
-                      <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Delete</button>
+                    <a href="<?php echo site_url('Employee/edit/' . $user['emp_id']); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Edit</a>
+                      <a href="<?php echo site_url('Employee/delete/' . $user['emp_id']); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

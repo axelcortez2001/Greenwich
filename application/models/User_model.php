@@ -21,5 +21,23 @@ class User_model extends CI_Model {
     public function create_employee($data){
         $this->db->insert('employee', $data);
     } 
+    public function delete_employee($emp_id)
+    {
+        $this->db->where('emp_id', $emp_id);
+        $this->db->delete('employee');
+    }
+    public function getEmployeeById($emp_id)
+    {
+        $this->db->select('*');
+        $this->db->from('employee');
+        $this->db->where('emp_id', $emp_id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function update_employee($emp_id, $data)
+    {
+        $this->db->where('emp_id', $emp_id);
+        $this->db->update('employee', $data);
+    }
 }
 ?>
