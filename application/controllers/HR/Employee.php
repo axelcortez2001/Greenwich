@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 // Pass the user data to the view
                 $data['user'] = $user;
                 $data['users'] = $this->User_model->getAllUsers();
-                $this->load->view('employee_management', $data);
+                $this->load->view('HR/employee_management', $data);
             } else {
                 // User data not found in session, redirect to login
                 redirect('login');
@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
         //Add Employee
         public function add(){
-            $this->load->view('Add_employee');
+            $this->load->view('HR/Add_employee');
         }
         public function create_emp() {
             $data = array(
@@ -34,17 +34,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'job_id' => $this->input->post('job_id'),
             );
             $this->User_model->create_employee($data);
-            redirect('Employee'); 
+            redirect('HR/Employee'); 
         }
         public function delete($emp_id)
         {
             $this->User_model->delete_employee($emp_id);
-            redirect('Employee');
+            redirect('HR/Employee');
         }
         public function edit($emp_id)
         {
             $data['user'] = $this->User_model->getEmployeeById($emp_id);
-            $this->load->view('Edit_employee', $data);
+            $this->load->view('HR/Edit_employee', $data);
         }
         public function update($emp_id)
         {
@@ -58,7 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 'job_id' => $this->input->post('job_id'),
             );
             $this->User_model->update_employee($emp_id, $data);
-            redirect('Employee');
+            redirect('HR/Employee');
         }
         public function logout() {
             $this->session->unset_userdata('user'); 

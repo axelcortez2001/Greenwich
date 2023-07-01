@@ -12,7 +12,7 @@
     </div>
     <ul class="flex space-x-4">
         <li><a href="#" class="text-white hover:text-gray-400">Attendance</a></li>
-        <li><a href="<?php echo site_url('employee_management'); ?>" class="text-white hover:text-red-700 text-lg font-bold">Employee Management</a></li>
+        <li><a href="<?php echo site_url('HR/Employee'); ?>" class="text-white hover:text-red-700 text-lg font-bold">Employee Management</a></li>
         <li><a href="#" class="text-white hover:text-gray-400">Payroll</a></li>
         <li><a href="#" class="text-white hover:text-gray-400">Inventory</a></li>
         <li><a href="#" class="text-white hover:text-gray-400">Report</a></li>

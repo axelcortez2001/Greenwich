@@ -8,7 +8,7 @@
     <div class="flex justify-center items-center h-screen bg-green-900 flex-col">
         <h1 class="text-2xl text-center font-bold mb-4">Add Employee</h1>
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-1/2" 
-        action="<?php echo site_url('Employee/update/'.$user->emp_id); ?>" method="post">
+        action="<?php echo site_url('HR/Employee/update/'.$user->emp_id); ?>" method="post">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name:</label>
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" name="name" value="<?php echo $user->name; ?>" required>

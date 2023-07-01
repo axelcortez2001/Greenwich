@@ -9,9 +9,8 @@
                 <img src="http://i2.wp.com/www.boholtourismph.com/wp-content/uploads/2014/11/greenwich-logo.png?resize=917%2C1024" alt="logo">
             </div>
             <ul class="flex space-x-4">
-                <li><a href="#" class="text-white hover:text-gray-400">Attendance</a></li>
-                <li><a href="#" class="text-white hover:text-red-700 text-lg font-bold">Employee Management</a></li>
-                <li><a href="#" class="text-white hover:text-gray-400">Payroll</a></li>
+                <li><a href="#" class="text-white hover:text-red-700 text-lg font-bold">HR Management</a></li>
+                <li><a href="#" class="text-white hover:text-gray-400">Accounting</a></li>
                 <li><a href="#" class="text-white hover:text-gray-400">Inventory</a></li>
                 <li><a href="#" class="text-white hover:text-gray-400">Report</a></li>
                 <li><a href="#" class="text-white hover:text-gray-400"><?php echo $user['name']; ?></a></li>
@@ -20,8 +19,8 @@
         </nav>
         <div class="container mx-auto mt-5 px-4 sm:px-6 lg:px-8">
           <div class="flex flex-wrap space-x-4 mb-4">
-          <a href="<?php echo site_url('Employee/add'); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Hire Employee</a>
-          <a href="<?php echo site_url('Jobs/add'); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Jobs</a>
+          <a href="<?php echo site_url('HR/Employee/add'); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Hire Employee</a>
+          <a href="<?php echo site_url('HR/Jobs'); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Jobs</a>
         </div>
           </div>
           <div class="overflow-x-auto">
@@ -47,8 +46,8 @@
                     <td class="py-4 px-6 border-b border-gray-200"><?php echo $user['date_hired']; ?></td>
                     <td class="py-4 px-6 border-b border-gray-200"><?php echo $user['job_name']; ?></td>
                     <td class="py-4 px-6 border-b border-gray-200">
-                    <a href="<?php echo site_url('Employee/edit/' . $user['emp_id']); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Edit</a>
-                      <a href="<?php echo site_url('Employee/delete/' . $user['emp_id']); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Delete</a>
+                    <a href="<?php echo site_url('HR/Employee/edit/' . $user['emp_id']); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Edit</a>
+                      <a href="<?php echo site_url('HR/Employee/delete/' . $user['emp_id']); ?>" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
