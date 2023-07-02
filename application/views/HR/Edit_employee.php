@@ -34,9 +34,20 @@
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" value="<?php echo $user->password; ?>" required>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="job_id">Job ID:</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="job_id" type="text" name="job_id" value="<?php echo $user->job_id; ?>" required>
-                </div>
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="job_id">Job ID</label>
+                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="job_id" name="job_id"  required>
+                    <option>Select Role</option>    
+                    <option value="1" <?php echo ($user->job_id == 1) ? 'selected' : ''; ?>>Admin</option>
+                    <option value="2" <?php echo ($user->job_id == 2) ? 'selected' : ''; ?>>Manager</option>
+                    <option value="3" <?php echo ($user->job_id == 3) ? 'selected' : ''; ?>>Kitchen Manager</option>
+                    <option value="4" <?php echo ($user->job_id == 4) ? 'selected' : ''; ?>>Inventory Manager</option>
+                    <option value="5" <?php echo ($user->job_id == 5) ? 'selected' : ''; ?>>HR Manager</option>
+                    <option value="6" <?php echo ($user->job_id == 6) ? 'selected' : ''; ?>>Accounting Manager</option>
+                    <option value="7" <?php echo ($user->job_id == 7) ? 'selected' : ''; ?>>Cashier</option>
+                    <option value="8" <?php echo ($user->job_id == 8) ? 'selected' : ''; ?>>Guard</option>
+                    <option value="9" <?php echo ($user->job_id == 9) ? 'selected' : ''; ?>>Staff</option>
+                </select>
+            </div>
             <div class="flex items-center justify-center">
                 <input class="bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer" type="submit" value="Update Employee">
             </div>

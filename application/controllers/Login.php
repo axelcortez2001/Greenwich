@@ -16,7 +16,8 @@ class Login extends CI_Controller {
             $password = $this->input->post('password');
         
             $user = $this->User_model->get_user($username, $password);
-        
+            
+            //Authenticate User
             if ($user) {
                 $userData = array(
                     'emp_id' => $user->emp_id,
@@ -25,10 +26,18 @@ class Login extends CI_Controller {
                     'name' => $user->name,
                     'address' => $user->address,
                     'job_name' =>$user->job_name,
-                    // Add any other relevant user data you want to store
                 );
                 $this->session->set_userdata('user', $userData);
-                redirect('dashboard');
+                if ($user->job_name === 'Cashier') {
+                    $this->User_model->log_audit_entry('login', $user->emp_id);
+                    redirect('Order/Counter');
+                } else if($user->job_name === 'Kitchen Manager') {
+                    $this->User_model->log_audit_entry('login', $user->emp_id);
+                   redirect('Kitchen/Kitchen');
+                }else{
+                    $this->User_model->log_audit_entry('login', $user->emp_id);
+                    redirect('dashboard');
+                }
             } else {
                 // User authentication failed, show error message
                 $data['error'] = 'Invalid username or password';

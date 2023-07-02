@@ -1,6 +1,16 @@
 <?php
 class User_model extends CI_Model {
-  
+
+    //audit logs
+    public function log_audit_entry($action, $user_id) {
+        $data = array(
+            'action' => $action,
+            'user_id' => $user_id,
+            'timestamp' => date('Y-m-d H:i:s')
+        );
+        $this->db->insert('audit_log', $data);
+    }
+
     public function get_user($username, $password) {
         $this->db->select('employee.*, job.name as job_name');
         $this->db->from('employee');
