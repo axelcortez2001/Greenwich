@@ -43,8 +43,10 @@
                                 <div class="text-gray-600 mb-2">Supplier: <?php echo $product->supplier; ?></div>
                                 <div class="text-gray-600 mb-2">Category: <?php echo $product->category; ?></div>
                                 <div class="flex justify-between">
-                                <a href="#" class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="submit">Buy</a>
-                                <input type="number" class="w-20 bg-gray-200" id="total" name="total">
+                                    <form action="<?php echo site_url('Inventory/Inventory/purchase_prod/' . $product->product_id); ?>" method="post">
+                                        <input type="number" class="w-20 bg-gray-200" id="total_product" name="total_product">
+                                        <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="submit">Buy</button>
+                                    </form>
                                 </div>
                             </div>
                         <?php } ?>

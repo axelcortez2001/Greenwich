@@ -112,17 +112,33 @@ class Inventory extends CI_Controller
             }
         }
 
-        public function show_stock(){
 
+    public function purchase_prod($product_id){
+        $product = $this->Inventory_model->get_prodById($product_id);
+        $stocks = $this->Inventory_model->get_stockById($product_id);
+        if($product){
+            $total_product = $this->input->post('total_product');
+            $total_amount = $product->price * $total_product;
+            $date = date('Y-m-d H:i:s');
+            $purchaseData = array(
+                'product_id' => $product->product_id,
+                'total_product' => $total_product,
+                'total_amount' => $total_amount,
+                'date' => $date,
+            );
+            $this->Inventory_model->create_purchase($purchaseData);
+            $newStock = $stocks->stock + $this->input->post('total_product');
+            $this->Inventory_model->updateStock($product_id, $newStock);
+            redirect('Inventory/Inventory/purchases');
         }
-
-
+    }
      //go to buy purchases view
      public function purchases(){
         $user = $this->session->userdata('user');
         if ($user) {
             // Pass the user data to the view
             $data['user'] = $user;
+            $data['purchases'] = $this->Inventory_model->show_purchase();
             $this->load->view('Inventory/purchases', $data);
         } else {
             // User data not found in session, redirect to login
