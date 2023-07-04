@@ -17,6 +17,28 @@ class Inventory extends CI_Controller
         if ($user) {
             // Pass the user data to the view
             $data['user'] = $user;
+    
+            $categories = ['Special Offers', 'Pizza', 'Pasta', 'Group Meals', 'Solo Meals', 'Drinks'];
+            $this->load->model('Inventory_model');
+            
+            foreach ($categories as $category) {
+                $stocks[$category] = $this->Inventory_model->getStockByCategory($category);
+            }
+            // Check if the stock is zero and update the stock data
+            foreach ($stocks as $category => &$categoryStocks) {
+                foreach ($categoryStocks as &$stock) {
+                    if ($stock->stock == 0) {
+                        $stock->stock = 'Out of Stock';
+                        $stock->stockColor = 'red'; // Set the text color to red
+                    } else {
+                        $stock->stockColor = 'green'; // Set the default text color
+                    }
+                }
+            }
+    
+            // Pass the stocks data to the view
+            $data['stocks'] = $stocks;
+    
             $this->load->view('Inventory/Stocks', $data);
         } else {
             // User data not found in session, redirect to login
@@ -24,19 +46,6 @@ class Inventory extends CI_Controller
         }
     }
     
-    //go to buy products view
-    // public function buy_prod(){
-    //     $user = $this->session->userdata('user');
-    //     if ($user) {
-    //         // Pass the user data to the view
-    //         $data['user'] = $user;
-    //         $this->load->view('Inventory/Buy_products', $data);
-    //     } else {
-    //         // User data not found in session, redirect to login
-    //         redirect('login');
-    //     }
-    // }
-
     public function add(){
         $this->load->view('Inventory/Add_prod');
     }
@@ -101,6 +110,10 @@ class Inventory extends CI_Controller
                 // User data not found in session, redirect to login
                 redirect('login');
             }
+        }
+
+        public function show_stock(){
+
         }
 
 

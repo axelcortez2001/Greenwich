@@ -56,6 +56,7 @@
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 	define('UPLOADS_BASE_URL', '/Greenwich/uploads/');
+	define('JS_BASE_URL', '/Greenwich/assets/');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
