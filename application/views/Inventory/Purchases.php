@@ -17,7 +17,7 @@
         <div class="w-3/4">
             <div class="container mx-auto mt-10 px-4 sm:px-6 lg:px-8">
                 <div class="text-center text-lg font-bold">
-                    <h1 class="text-3xl">Purchases</h1>
+                    <h1 class="text-3xl">Inventory Reports</h1>
                 </div>
             </div>
             <div class="overflow-x-auto">
@@ -29,6 +29,7 @@
                       <th class="py-3 px-6 text-left">Quantity</th>
                       <th class="py-3 px-6 text-left">Amount</th>
                       <th class="py-3 px-6 text-left">Date</th>
+                      <th class="py-3 px-6 text-left">Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,7 +44,7 @@
                       <td class="py-4 px-6 border-b border-gray-200"><?php echo $purchase['total_product']; ?></td>
                       <td class="py-4 px-6 border-b border-gray-200">P<?php echo $purchase['total_amount']; ?></td>
                       <td class="py-4 px-6 border-b border-gray-200"><?php echo $purchase['date']; ?></td>
-                  
+                      <td class="py-4 px-6 border-b border-gray-200"><?php echo $purchase['status']; ?></td>
                   </tr>
                   <?php endforeach; ?>
                 </tbody>

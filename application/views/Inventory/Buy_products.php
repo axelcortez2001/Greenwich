@@ -45,6 +45,7 @@
                                 <div class="flex justify-between">
                                     <form action="<?php echo site_url('Inventory/Inventory/purchase_prod/' . $product->product_id); ?>" method="post">
                                         <input type="number" class="w-20 bg-gray-200" id="total_product" name="total_product">
+                                        <input type="hidden" id="Status" name="Status" value="Pending">
                                         <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="submit">Buy</button>
                                     </form>
                                 </div>

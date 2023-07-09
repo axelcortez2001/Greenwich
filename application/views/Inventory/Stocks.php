@@ -34,7 +34,8 @@
                     <option value="Drinks">Drinks</option>
                   </select>
                   <?php foreach ($stocks as $category => $categoryStocks): ?>
-                    <div id="<?php echo $category; ?>">                    <input type="hidden" id="stocksData" value="<?php echo htmlspecialchars(json_encode(array_keys($stocks))); ?>">
+                    <div id="<?php echo $category; ?>">                    
+                    <input type="hidden" id="stocksData" value="<?php echo htmlspecialchars(json_encode(array_keys($stocks))); ?>">
                       <h3 class="text-xl font-bold mt-6"><?php echo $category; ?></h3>
                       <table class="w-full border-collapse mt-4 text-center">
                           <thead>

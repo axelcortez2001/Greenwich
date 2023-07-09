@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['Employee'] = 'HR/Employee/index';
 $route['Inventory'] = 'Inventory/Inventory/index';
+$route['Accounting'] = 'Accounting/Accounting/index';
 $route['Jobs'] = 'Jobs/index';
 $route['HR/Employee/add'] = 'HR/Employee/add';
 $route['Employee/edit/(:num)'] = 'Employee/edit/$1';

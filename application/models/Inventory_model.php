@@ -71,12 +71,21 @@ class Inventory_model extends CI_Model
     //show all purchases
     public function show_purchase()
     {
-        $this->db->select('product_purchase.product_id, product_purchase.purchase_id, product_purchase.total_amount, product_purchase.total_product, product_purchase.date, product.img, product.name, product.supplier');
+        $this->db->select('product_purchase.product_id, product_purchase.status, product_purchase.purchase_id, product_purchase.total_amount, product_purchase.total_product, product_purchase.date, product.img, product.name, product.supplier');
         $this->db->from('product_purchase');
         $this->db->join('product', 'product_purchase.product_id = product.product_id');
         $this->db->order_by('product_purchase.purchase_id', 'desc');
         $query = $this->db->get();
         return $query->result_array();
+    }
+    //add to cart
+    public function add_cart($product_id){
+        $this->db->select('product.name, product.product_id, product.category, inventory.stock, inventory.price, inventory.product_id');
+        $this->db->from('product');
+        $this->db->join('inventory', 'product.product_id = inventory.product_id');
+        $this->db->where('product.product_id', $product_id);
+        $query = $this->db->get();
+        return $query->row();
     }
 }
 

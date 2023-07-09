@@ -11,6 +11,7 @@
             right: 0;
             z-index: 999;
             background-color: #18181b;
+            height: 5rem;
         }
 
         .active-link {
@@ -20,7 +21,6 @@
     </style>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-200">
     <nav class="flex items-center justify-between p-4 fixed-navbar">
         <div class='h-16 w-16'>
             <a href="<?php echo site_url('dashboard'); ?>">
@@ -32,7 +32,7 @@
                 <li><a href="<?php echo site_url('Employee'); ?>" class="text-white hover:text-gray-400 text-lg <?php echo ($this->uri->segment(1) == 'Employee' ? 'active-link' : ''); ?>">HR Management</a></li>
             <?php endif; ?>
             <?php if ($user['job_name'] === 'Accounting Manager' || $user['job_name'] === 'Admin'  || $user['job_name'] === 'Manager'): ?>
-                <li><a href="#" class="text-white hover:text-gray-400 text-lg <?php echo ($this->uri->segment(1) == 'Accounting' ? 'active-link' : ''); ?>">Accounting</a></li>
+                <li><a href="<?php echo site_url('Accounting'); ?>" class="text-white hover:text-gray-400 text-lg <?php echo ($this->uri->segment(1) == 'Accounting' ? 'active-link' : ''); ?>">Accounting</a></li>
             <?php endif; ?>
             <?php if ($user['job_name'] === 'Inventory Manager' || $user['job_name'] === 'Admin'  || $user['job_name'] === 'Manager'): ?>
                 <li><a href="<?php echo site_url('Inventory'); ?>" class="text-white hover:text-gray-400 text-lg <?php echo ($this->uri->segment(1) == 'Inventory' ? 'active-link' : ''); ?>">Inventory</a></li>
@@ -44,5 +44,4 @@
             <li><a href="<?php echo site_url('dashboard/logout'); ?>" class="text-white text-lg">Logout</a></li>
         </ul>
     </nav>
-</body>
 </html>

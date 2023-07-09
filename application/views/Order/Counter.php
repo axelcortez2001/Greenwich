@@ -53,7 +53,15 @@
                                 <?php } ?>
                                 </div>
                                 <div class="flex justify-between">
-                                        <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="submit">Add</button>     
+                                    <?php if ($product->stock > 0) { ?>
+                                        <form action="<?php echo site_url('Order/Counter/add_cart'); ?>" method="post">
+                                            <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
+                                            <input type="hidden" name="stock" value="<?php echo $product->stock; ?>">
+                                            <input type="hidden" name="price" value="<?php echo $product->price; ?>">
+                                            <input type="hidden" name="name" value="<?php echo $product->name; ?>">
+                                            <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="submit">Add</button>
+                                        </form>
+                                    <?php } ?>
                                 </div>
                             </div>
                         <?php } ?>
@@ -70,15 +78,35 @@
                         <a href="<?php echo site_url('dashboard/logout'); ?>" class="text-xl p-2">Logout</a>
                     </div>
                 </div>
-                <div class="h-80 w-full overflow-y-auto bg-gray-400">
-                    
+                <div class="h-80 w-full overflow-y-auto bg-gray-400" >
+                <?php if (!empty($cartItems)) {
+                    foreach ($cartItems as $item) { ?>
+                    <form action="<?php echo site_url('Order/Counter/removeCartItem/' . $item['rowid']); ?>">
+                        <div class="flex items-center justify-between px-4 py-2 border-b">
+                            <div class="flex items-center">
+                                <div class="ml-2">
+                                    <div class="text-gray-800 font-bold"><?php echo $item['name']; ?></div>
+                                    <div class="text-gray-600">Price: P<?php echo $item['price']; ?></div>
+                                    <div class="text-gray-600">Quantity: <?php echo $item['qty']; ?></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="text-red-500 font-bold">Remove</a>
+                        </div>
+                    </form>
+                    <?php }
+                } else { ?>
+                    <div class="flex justify-center items-center h-full">
+                        <span class="text-gray-600">No items added to the cart</span>
+                    </div>
+                <?php } ?>
                 </div>
+                <form action="<?php echo site_url('Order/Counter/save_transaction'); ?>" method="post">
                 <div class="flex flex-row w-full py-3 pr-2 justify-between">
                     <div class="w-36 px-5">
                         <h1 class="text-xl mt-2">Total:</h1>
                     </div>
                     <div class="w-full flex">
-                        <input type="text" class="w-full border border-gray-300 rounded-md px-4 py-2" >
+                        <input type="text" id="total_amount" name="total_amount" value="<?php echo $totalPrice ; ?>" class="w-full border border-gray-300 rounded-md px-4 py-2" readonly>
                     </div>
                 </div>
                 <div class="flex flex-row w-full py-3 pr-2 justify-between">
@@ -86,7 +114,7 @@
                         <h1 class="text-xl mt-2">Payment:</h1>
                     </div>
                     <div class="w-full flex">
-                        <input type="text" class="w-full border border-gray-300 rounded-md px-4 py-2" >
+                        <input type="number" id="payment" name="payment" placeholder="0.00" class="w-full border border-gray-300 rounded-md px-4 py-2" >
                     </div>
                 </div>
                 <div class="flex flex-row w-full py-3 pr-2 justify-between">
@@ -94,17 +122,20 @@
                         <h1 class="text-xl mt-2">Change:</h1>
                     </div>
                     <div class="w-full flex">
-                        <input type="text" class="w-full border border-gray-300 rounded-md px-4 py-2" >
+                        <input type="text" id="change" name="change" placeholder="0.00" class="w-full border border-gray-300 rounded-md px-4 py-2" readonly>
                     </div>
                 </div>
+                <script src="<?php echo JS_BASE_URL .'change.js'; ?>"></script>
                 <div class="flex flex-row w-full pr-10 py-3 pl-36 justify-between">
                     <div>
                     <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="submit">Save</button>
                     </div>
                     <div>
-                    <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="submit">Pay Card</button>
+                    <button class="bg-red-500 hover:bg-green-900 text-white font-bold py-2 px-4 rounded shadow-md mb-2" type="button">Pay Card</button>
                     </div>
                 </div>
+                <form>
+
             </div>
         </div>
     </div>

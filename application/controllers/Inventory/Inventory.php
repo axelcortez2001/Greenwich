@@ -118,12 +118,14 @@ class Inventory extends CI_Controller
         $stocks = $this->Inventory_model->get_stockById($product_id);
         if($product){
             $total_product = $this->input->post('total_product');
+            $status = $this->input->post('Status');
             $total_amount = $product->price * $total_product;
             $date = date('Y-m-d H:i:s');
             $purchaseData = array(
                 'product_id' => $product->product_id,
                 'total_product' => $total_product,
                 'total_amount' => $total_amount,
+                'status' => $status,
                 'date' => $date,
             );
             $this->Inventory_model->create_purchase($purchaseData);
