@@ -15,9 +15,6 @@ class botbar extends CI_Controller
             $user = $this->session->userdata('user');
             if ($user) {
                 $data['user'] = $user;
-                $data['Pending'] = $this->Accounting_model->getPending();
-                $data['transactions'] = $this->Accounting_model->gettransactions();
-                $data['sales'] = $this->Order_model->get_totalsales();
                 // Pass the stocks data to the view
                 $this->load->view('Accounting/purchases', $data);
             } else {
@@ -26,5 +23,5 @@ class botbar extends CI_Controller
             }
         }
     }
-}
+
 ?>

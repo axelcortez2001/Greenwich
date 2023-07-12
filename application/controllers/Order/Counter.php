@@ -50,16 +50,8 @@ class Counter extends CI_Controller
         $price = $this->input->post('price');
         $name = $this->input->post('name');
         $products = $this->Inventory_model->show_stock();
-        // Check stock availability and update product data
-        foreach ($products as $key => $product) {
-            if ($product->stock > 0) {
-                $products[$key]->availability = 'Available';
-                $products[$key]->availabilityColor = 'text-green-500';
-            } else {
-                $products[$key]->availability = 'Not Available';
-                $products[$key]->availabilityColor = 'text-red-500';
-            }
-        }
+        $oldqty = $this->Inventory_model->get_stockById($product_id);
+        $newStock = $oldqty->stock - 1;
         // Check if the product is available in stock
         if ($stock > 0) {
             // Add the product to the cart
@@ -69,7 +61,8 @@ class Counter extends CI_Controller
                 'price' => $price,
                 'name' => $name
             ));
-
+            $this->Inventory_model->updateStock($product_id, $newStock);
+           
             // Get the updated cart items
             $cartItems = $this->cart->contents();
             $totalPrice = 0;
@@ -82,7 +75,19 @@ class Counter extends CI_Controller
             $data['totalPrice'] = $totalPrice;
             $this->load->view('Order/Counter', $data);
         } else {
-            // FOR VALIDATIONNNNNNNN
+            // Get the updated cart items
+            $cartItems = $this->cart->contents();
+            $totalPrice = 0;
+            foreach ($cartItems as $item) {
+                $totalPrice += $item['subtotal'];
+            }
+            $data['products'] = $products;
+            $data['user'] = $user;
+            $data['cartItems'] = $cartItems;
+            $data['totalPrice'] = $totalPrice;
+            $data['fail'] = 'Ooops! Out of stock';
+            echo '<script>alert("' . $data['fail'] . '");</script>';
+            $this->load->view('Order/Counter', $data);
         }
         } else {
             // User data not found in session, redirect to login
@@ -93,34 +98,18 @@ class Counter extends CI_Controller
         {
             $user = $this->session->userdata('user');
             if ($user) {
-                $products = $this->Inventory_model->show_stock();
-                $this->cart->remove($rowid);
-                // Check stock availability and update product data
-                foreach ($products as $key => $product) {
-                    if ($product->stock > 0) {
-                        $products[$key]->availability = 'Available';
-                        $products[$key]->availabilityColor = 'text-green-500';
-                    } else {
-                        $products[$key]->availability = 'Not Available';
-                        $products[$key]->availabilityColor = 'text-red-500';
-                    }
-                }
-                    // Get the updated cart items
-                    $cartItems = $this->cart->contents();
-                    $totalPrice = 0;
-                    foreach ($cartItems as $item) {
-                        $totalPrice += $item['subtotal'];
-                    }
-                    $data['products'] = $products;
-                    $data['user'] = $user;
-                    $data['cartItems'] = $cartItems;
-                    $data['totalPrice'] = $totalPrice;
-                    $this->load->view('Order/Counter', $data);
-                } else {
-                    redirect('login');
-                    
-                }
+                $carts = $this->cart->get_item($rowid);
+                    $productId = $carts['id'];
+                    $quantity = $carts['qty'];
+                    $oldqty = $this->Inventory_model->get_stockById($productId);
+                    $newStock = $oldqty->stock + $quantity;
+                    $this->cart->remove($rowid);
+                    $this->Inventory_model->updateStock($productId, $newStock);
+                    redirect('Order/Counter');
+            } else {
+                redirect('login'); 
             }
+        }
 
     public function save_transaction(){
         // Get user data from session
@@ -131,18 +120,24 @@ class Counter extends CI_Controller
             $totalPrice = $this->cart->total();
             $payment = $this->input->post('payment');
             $change = $payment - $totalPrice;
+            $date = date('Y-m-d H:i:s');
             $data = array(
                 'emp_id' => $user['emp_id'],
                 'total_amount' => $totalPrice,
                 'payment' => $payment,
                 'change' => $change,
+                'date' => $date,
                 'cart_data' => serialize($cartItems)
             );
-            $this->Order_model->save_trans($data);
-            $this->cart->destroy();
-            $data['success'] = 'New Transaction has been save!';
-            echo '<script>alert("' . $data['success'] . '");</script>';
-            redirect('Order/Counter');
+            if($payment > $totalPrice){
+                $this->Order_model->save_trans($data);
+                $this->cart->destroy();
+                redirect('Order/Counter');
+            }else{
+                $this->session->set_flashdata('fail', 'Not Enough Payment!');
+                redirect('Order/Counter');
+            }   
+            
         } else {
             // Redirect to login page if user is not logged in
             redirect('login');

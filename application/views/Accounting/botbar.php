@@ -18,11 +18,17 @@
         </div>
         <div>
             <h1 class="text-white font-bold">Total Expenses:</h1>
-            <h1 class="text-2xl text-white font-bold">P</h1>
+            <h1 class="text-2xl text-white font-bold">P<?php echo $expenses['expenses']; ?></h1>
         </div>
         <div>
             <h1 class="text-white font-bold">Total Income:</h1>
-            <h1 class="text-2xl text-white font-bold">Pending</h1>
+                <?php if($income['income'] > 0){ ?>
+                    <h1 class="text-2xl text-white font-bold">P<?php echo $income['income']; ?></h1>
+                <?php } else { ?>
+                    <h1 class="text-2xl text-red-600 font-bold">P<?php echo $income['income']; ?></h1>
+                <?php } ?>
+                
+            </h1>
         </div>
         <div>
             <h1 class="text-white font-bold">Account:</h1>

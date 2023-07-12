@@ -38,22 +38,25 @@
                         </div>
                     </div>
                     <hr class="mb-2 px-4">
+                    
                     <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
                         <!-- Display available products here -->
+                        <div class="col-span-full flex justify-center">
+                        </div>
                         <?php foreach ($products as $product) { ?>
                             <div class="bg-white rounded-lg shadow-md p-4 product" data-category="<?php echo $product->category; ?>">
                                 <img src="<?php echo UPLOADS_BASE_URL . $product->img; ?>" alt="Product Image" class="w-full h-40 object-contain">
                                 <div class="text-gray-800 font-bold mb-2 product-name"><?php echo $product->name; ?></div>
                                 <div class="text-gray-600 mb-2">P<?php echo $product->price; ?></div>
                                 <div class="flex justify-between">
-                                <?php if ($product->stock > 0) { ?>
+                                <?php if ($product->stock > 1) { ?>
                                     <span class="text-green-500 font-bold mb-2">Available</span>
                                 <?php } else { ?>
                                     <span class="text-red-500 font-bold mb-2">Not Available</span>
                                 <?php } ?>
                                 </div>
                                 <div class="flex justify-between">
-                                    <?php if ($product->stock > 0) { ?>
+                                    <?php if ($product->stock > 1) { ?>
                                         <form action="<?php echo site_url('Order/Counter/add_cart'); ?>" method="post">
                                             <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
                                             <input type="hidden" name="stock" value="<?php echo $product->stock; ?>">
@@ -122,9 +125,15 @@
                         <h1 class="text-xl mt-2">Change:</h1>
                     </div>
                     <div class="w-full flex">
-                        <input type="text" id="change" name="change" placeholder="0.00" class="w-full border border-gray-300 rounded-md px-4 py-2" readonly>
+                        <input type="text" id="change" name="change"  placeholder="0.00" class="w-full border border-gray-300 rounded-md px-4 py-2" readonly>
                     </div>
+                    
                 </div>
+                <?php if($this->session->flashdata('fail')):?>
+                    <div class="text-red-600 ml-5 text-bold">
+                    <?php echo'<p class="alert alert-success">'.$this->session->flashdata('fail').'</p>';?>
+                    </div>
+                <?php endif; ?>
                 <script src="<?php echo JS_BASE_URL .'change.js'; ?>"></script>
                 <div class="flex flex-row w-full pr-10 py-3 pl-36 justify-between">
                     <div>

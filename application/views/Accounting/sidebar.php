@@ -18,7 +18,7 @@
         <?php echo ($this->uri->segment(1) == 'Stocks' ? 'active-link' : ''); ?>">Purchase Transactions</a></li>
         <li><a href="<?php echo site_url('Accounting/Accounting/show_sales'); ?>" class="block py-2 px-4 hover:bg-green-700
         <?php echo ($this->uri->segment(1) == 'Buy Products' ? 'active-link' : ''); ?>">Sale Transactions</a></li>
-        <li><a href="<?php echo site_url('Inventory/Inventory/purchases'); ?>" class="block py-2 px-4 hover:bg-green-700
+        <li><a href="<?php echo site_url('Accounting/Accounting/show_payroll'); ?>" class="block py-2 px-4 hover:bg-green-700
         <?php echo ($this->uri->segment(1) == 'Purchases' ? 'active-link' : ''); ?>">Payrolls</a></li>
     </ul>
 </div>

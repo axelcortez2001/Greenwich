@@ -47,6 +47,71 @@ class Accounting_model extends CI_Model
         $this->db->where('purchase_id', $purchase_id);
         $this->db->update('product_purchase');
     }
+
+    //Payrollssss
+    public function getEmp() {
+        $this->db->select('employee.*, job.name as job_name, job.des, job.salary');
+        $this->db->select('COALESCE(SUM(payroll.pay_salary), 0) AS pay_salary');
+        $this->db->from('employee');
+        $this->db->join('job', 'employee.job_id = job.job_id', 'left');
+        $this->db->join('payroll', 'employee.emp_id = payroll.emp_id', 'left');
+        $this->db->group_by('employee.emp_id');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function getEmpById($emp_id) {
+        $this->db->select('employee.*, job.name as job_name, job.des, job.salary');
+        $this->db->from('employee');
+        $this->db->join('job', 'employee.job_id = job.job_id', 'left');
+        $this->db->where('employee.emp_id', $emp_id);
+        $query = $this->db->get();
+        return $query->row();
+    }
+    public function create_payroll($pays){
+        $this->db->insert('payroll', $pays);
+    }
+    public function get_payrollById($emp_id){
+        $this->db->select('*');
+        $this->db->where('emp_id', $emp_id);
+        $this->db->from('payroll');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    public function get_HRExpenses(){
+        $this->db->select('COALESCE(SUM(pay_salary), 0) AS pay_salary');
+        $this->db->from('payroll');
+        $this->db->group_by('emp_id');
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $data['pay_salary'] = $result['pay_salary'];
+        return $data;
+    }
+    public function get_AllExpenses(){
+        $this->db->select('SUM(total_amount) AS total_amount');
+        $this->db->from('product_purchase');
+        $this->db->where('status', 'Paid');
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $paid_amount = $result['total_amount'];
+
+        $this->db->select('SUM(pay_salary) AS pay_salary');
+        $this->db->from('payroll');
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $total = $result['pay_salary'];
+
+        $this->db->select('COALESCE(SUM(total_amount), 0) AS total_income');
+        $this->db->from('order_transaction');
+        $query = $this->db->get();
+        $result = $query->row_array();
+        $incom = $result['total_income'];
+
+        $totalexpenses = $paid_amount + $total;
+        $sale = $incom - $totalexpenses;
+        $data['expenses'] = $totalexpenses;
+        $data['income'] = $sale;
+        return $data;
+    }
 }
 
 ?>

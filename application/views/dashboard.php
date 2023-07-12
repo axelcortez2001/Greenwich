@@ -38,7 +38,7 @@
                 <li><a href="<?php echo site_url('Inventory'); ?>" class="text-white hover:text-gray-400 text-lg <?php echo ($this->uri->segment(1) == 'Inventory' ? 'active-link' : ''); ?>">Inventory</a></li>
             <?php endif; ?>
             <?php if ($user['job_name'] === 'Admin' || $user['job_name'] === 'Manager'): ?>
-                <li><a href="#" class="text-white hover:text-gray-400 text-lg <?php echo ($this->uri->segment(1) == 'Report' ? 'active-link' : ''); ?>">Report</a></li>
+                <li><a href="#" class="text-white hover:text-gray-400 text-lg <?php echo ($this->uri->segment(1) == 'Report' ? 'active-link' : ''); ?>">Analytics</a></li>
             <?php endif; ?>
             <li><a href="#" class="text-white hover:text-gray-400 text-lg"><?php echo $user['job_name']; ?></a></li>
             <li><a href="<?php echo site_url('dashboard/logout'); ?>" class="text-white text-lg">Logout</a></li>
