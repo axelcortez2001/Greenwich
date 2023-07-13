@@ -40,9 +40,7 @@
                     <hr class="mb-2 px-4">
                     
                     <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
-                        <!-- Display available products here -->
-                        <div class="col-span-full flex justify-center">
-                        </div>
+            
                         <?php foreach ($products as $product) { ?>
                             <div class="bg-white rounded-lg shadow-md p-4 product" data-category="<?php echo $product->category; ?>">
                                 <img src="<?php echo UPLOADS_BASE_URL . $product->img; ?>" alt="Product Image" class="w-full h-40 object-contain">
