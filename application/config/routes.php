@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -58,4 +58,3 @@ $route['Accounting'] = 'Accounting/Accounting/index';
 $route['Jobs'] = 'Jobs/index';
 $route['HR/Employee/add'] = 'HR/Employee/add';
 $route['Employee/edit/(:num)'] = 'Employee/edit/$1';
-

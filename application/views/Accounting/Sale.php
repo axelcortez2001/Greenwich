@@ -12,7 +12,7 @@
             <!-- Sidebar -->
             <?php include '/application/views/Accounting/sidebar.php'; ?>
             <!-- Content -->
-            <div class="flex flex-col w-3/4 bg-green-600 mb-16">
+            <div class="flex flex-col w-3/4 bg-green-600 mb-16 ">
                 <div class="flex flex-row container p-5 space-x-5">
                     <div>
                         <input type="date" class="px-4 py-2 border border-gray-300 rounded-md" id="dateSelect">

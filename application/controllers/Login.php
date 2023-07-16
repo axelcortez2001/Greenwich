@@ -31,12 +31,9 @@ class Login extends CI_Controller {
                 if ($user->job_name === 'Cashier') {
                     $this->User_model->log_audit_entry('login', $user->emp_id);
                     redirect('Order/Counter');
-                } else if($user->job_name === 'Kitchen Manager') {
+                } else{
                     $this->User_model->log_audit_entry('login', $user->emp_id);
-                   redirect('Kitchen/Kitchen');
-                }else{
-                    $this->User_model->log_audit_entry('login', $user->emp_id);
-                    redirect('dashboard');
+                    redirect('dashboard/main_dashboard');
                 }
             } else {
                 // User authentication failed, show error message
@@ -47,4 +44,3 @@ class Login extends CI_Controller {
         }
         
 }
-?>
